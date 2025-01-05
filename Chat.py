@@ -24,13 +24,13 @@ def ollama_llm(question, context) :
     response = ollama.chat(model='zephyr', messages=[{'role': 'user','content' : formatted_prompt}])
     return response['message'] ['content']
 
-def rag_chain(question) :
+def rag_chain(question):
     retriever = load_document()
     retrieved_docs = retriever.invoke(question)
     formatted_context = format_docs(retrieved_docs)
     return ollama_llm(question, formatted_context)
 
-iface = gr. Interface (
+iface = gr.Interface (
     fn=rag_chain,
     inputs=["text"],
     outputs="text",
